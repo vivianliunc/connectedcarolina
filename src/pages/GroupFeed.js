@@ -4,6 +4,7 @@ import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 import db from '../firebase/firebase'
 import { collection, getDocs } from 'firebase/firestore'
+import GroupCard from "../components/GroupCard";
 
 function GroupFeed() {
 	const [formats, setFormats] = useState(() => ['bold', 'italic']);
@@ -16,17 +17,23 @@ function GroupFeed() {
 		setFormats(newFormats);
 	};
 
+	let groupcards = (groups && groups.map(group => (
+		<GroupCard title={group.title}
+			description={group.description}
+			tags={group.tags}
+			key={group.created}
+			social />
+	)))
+
 	useEffect(() => {
-		async function thing() {
+		async function getQuery() {
 			let groupsList = []
 			const query = await getDocs(collection(db, 'Groups'))
-			// console.log(query.forEach(element => {
-			// 	element.data()
-			// }))
+
 			query.forEach(doc => groupsList.push(doc.data()))
 			setGroups(groupsList)
 		}
-		thing();
+		getQuery();
 	}, [])
 
 	return (
@@ -144,7 +151,8 @@ function GroupFeed() {
 										</span>
 									</div>
 								</div>
-								<article className="media my-5">
+								{groupcards}
+								{/* <article className="media my-5">
 									<figure className="media-left">
 										<p className="image is-64x64">
 											<img src={require("../assets/profile_pic.png")} alt="face" />
@@ -228,7 +236,7 @@ function GroupFeed() {
 											<span className="tag is-rounded has-text-weight-semibold has-text-dark">Movies</span>
 										</div>
 									</div>
-								</article>
+								</article> */}
 							</div>
 							<div className="column">
 
