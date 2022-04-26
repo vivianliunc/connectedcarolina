@@ -1,5 +1,5 @@
 function GroupCard(props) {
-  let tags = (props.tags && props.tags.map((tag, index) => (
+  let tags = (props.tags && props.tags.map(tag => (
     <span className="tag is-rounded has-text-weight-semibold has-text-dark"
       key={tag}>
       {tag}
