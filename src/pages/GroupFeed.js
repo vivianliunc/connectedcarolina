@@ -1,8 +1,10 @@
 import Navbar from "../components/Navbar";
+import CCSwitch from "../components/CCSwitch";
 import * as React from 'react';
+import Footer from "../components/Footer";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-function GroupFeed() {
+export default function GroupFeed() {
     const [formats, setFormats] = React.useState(() => ['bold', 'italic']);
 
     const handleFormat = (
@@ -89,29 +91,27 @@ function GroupFeed() {
                                         color="primary"
                                         size="small"
                                         fullWidth
-                                        sx={{
-                                            borderRadius: '9999px',
-                                        }}
+
                                     >
-                                        <ToggleButton value="sunday" aria-label="bold">
+                                        <ToggleButton sx={{borderRadius: 9999}} value="sunday">
                                             S
                                         </ToggleButton>
-                                        <ToggleButton value="monday" aria-label="italic">
+                                        <ToggleButton value="monday">
                                             M
                                         </ToggleButton>
-                                        <ToggleButton value="tuesday" aria-label="underlined">
+                                        <ToggleButton value="tuesday">
                                             T
                                         </ToggleButton>
-                                        <ToggleButton value="wednesday" aria-label="color">
+                                        <ToggleButton value="wednesday">
                                             W
                                         </ToggleButton>
-                                        <ToggleButton value="thursday" aria-label="italic">
+                                        <ToggleButton value="thursday">
                                             T
                                         </ToggleButton>
-                                        <ToggleButton value="friday" aria-label="underlined">
+                                        <ToggleButton value="friday">
                                             F
                                         </ToggleButton>
-                                        <ToggleButton value="saturday" aria-label="color">
+                                        <ToggleButton sx={{borderRadius: 9999}} value="saturday">
                                             S
                                         </ToggleButton>
                                     </ToggleButtonGroup>
@@ -119,6 +119,7 @@ function GroupFeed() {
                             </div>
                             <div className="column is-half">
                                 <span className="is-size-2 has-text-weight-bold has-text-black">Home</span>
+                                <CCSwitch />
                                 <div class="field pt-4">
                                     <div class="control has-icons-right">
                                         <input class="input has-text-black" type="text" placeholder="Search for groups by name" />
@@ -220,16 +221,7 @@ function GroupFeed() {
                     </div>
                 </section>
             </div>
-            <footer class="footer">
-                <div class="content has-text-centered has-text-white">
-                    <span class="is-size-4 has-text-weight-bold">connectedcarolina</span>
-                    <p className="has-text-weight-medium mt-4">
-                        ConnectedCarolina by Pranav Chintalapudi, Will Ritchie, Vivian Li and Shivram Ramkumar.
-                    </p>
-                </div>
-            </footer>
+            <Footer />
         </div>
     );
 }
-
-export default GroupFeed;

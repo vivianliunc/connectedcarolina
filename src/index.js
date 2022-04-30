@@ -1,13 +1,21 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './styles.css';
-import App from './App';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import GroupFeed from './pages/GroupFeed';
+import CreateGroup from './pages/CreateGroup';
 import reportWebVitals from './reportWebVitals';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<GroupFeed />} />
+        <Route path="feed" element={<GroupFeed />} />
+        <Route path="create" element={<CreateGroup />} />
+      </Routes>
+    </BrowserRouter>
   </React.StrictMode>
 );
 
