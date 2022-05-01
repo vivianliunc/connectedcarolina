@@ -7,8 +7,20 @@ import { collection, getDocs } from 'firebase/firestore'
 import GroupCard from "../components/GroupCard";
 
 function GroupFeed() {
+
+
   const [formats, setFormats] = useState(() => ['bold', 'italic']);
-  const [groups, setGroups] = useState()
+  const [groupsFiltered, setGroupsFiltered] = useState();
+  const [groups, setGroups] = useState();
+  const [filter, setFilter] = useState(
+    {startDate : undefined,
+    endDate : undefined,
+    tags : undefined,
+    event : false,
+    days : undefined,
+    groupType : ["study", "social"],
+    search : undefined
+    });
 
   const handleFormat = (
     event: MouseEvent<HTMLElement>,
@@ -17,24 +29,114 @@ function GroupFeed() {
     setFormats(newFormats);
   };
 
-  let groupcards = (groups && groups.map(group => (
-    <GroupCard title={group.title}
+  let groupcards = (groupsFiltered && groupsFiltered.map(group => (
+
+    <GroupCard 
+      creator={group.creator}
+      days={group.days}
+      title={group.title}
       description={group.description}
+      event={group.event}
       tags={group.tags}
       key={group.created}
-      social={group.social} />
+      social={isSocial(group)} />
   )))
+
+  function isSocial(group) {
+    if(group.groupType === undefined) {
+      return false;
+    } else {
+      return group.groupType.includes("social");
+    }
+  }
+
+  function updateFilter(event) {
+
+    switch(typeof Object.getOwnPropertyDescriptor(filter, event.target.id).value) {
+      case "boolean":
+        setFilter(prevState => (
+          {
+            ...prevState,
+            [event.target.id] : event.target.checked
+          }
+        ));
+        break;
+      case "object":
+        let arrCopy = Object.getOwnPropertyDescriptor(filter, event.target.id).value;
+        if(event.target.checked) {
+          console.log("check");
+          arrCopy.push(event.target.value);
+        } else {
+          arrCopy = arrCopy.filter(elm => elm !== event.target.value)
+        }
+
+        setFilter(prevState => (
+          {
+            ...prevState,
+            [event.target.id] : arrCopy
+          }
+        ));
+        break;
+      default:
+        break;
+
+    }
+  }
+
+  function filterGroups(group) {
+    //let res = filter.event? group.event : !group.event;
+    let res = true;
+
+    for (const val in filter) {
+
+      let groupPropVal = Object.getOwnPropertyDescriptor(group, val);
+      let filterPropVal = Object.getOwnPropertyDescriptor(filter, val);
+
+      if(groupPropVal === undefined || filterPropVal === undefined) continue;
+
+      switch(typeof filterPropVal.value) {
+        case "boolean":
+          res = filterPropVal.value? groupPropVal.value : !groupPropVal.value;
+          break;
+        case "object":
+          let success = false;
+          for(let idx = 0; idx < filterPropVal.value.length; idx++) {
+            let elm = filterPropVal.value[idx];
+            if(groupPropVal.value.includes(elm)) {
+              success = true;
+              break;
+            }
+          }
+          
+          res = success;
+          break;
+        default:
+          break;
+      }
+
+      if(!res) {
+        break;
+      }
+    }
+
+    return res;
+  }
 
   useEffect(() => {
     async function getQuery() {
       let groupsList = []
       const query = await getDocs(collection(db, 'Groups'))
-
-      query.forEach(doc => groupsList.push(doc.data()))
-      setGroups(groupsList)
+      query.forEach(doc => groupsList.push(doc.data()));
+      setGroups(groupsList);
+      setGroupsFiltered(groupsList.filter(filterGroups))
     }
     getQuery();
   }, [])
+
+  useEffect(() => {
+    if(groups === undefined) return;
+    setGroupsFiltered(groups.filter(filterGroups));
+  }, [filter])
 
   return (
     <>
@@ -51,14 +153,20 @@ function GroupFeed() {
                   <p className="has-text-black has-text-weight-semibold is-size-5 pt-1 pb-2">Types</p>
                   <div className="py-1">
                     <label className="checkbox has-text-weight-medium">
-                      <input type="checkbox" />
+                      <input id="groupType" value="social" type="checkbox" defaultChecked onChange={updateFilter}/>
                       <span className="has-text-white">_</span>Social Groups
                     </label>
                   </div>
                   <div className="py-1">
                     <label className="checkbox has-text-weight-medium pr-4">
-                      <input type="checkbox" />
+                      <input id="groupType" value="study" type="checkbox" defaultChecked onChange={updateFilter}/>
                       <span className="has-text-white">_</span>Study Groups
+                    </label>
+                  </div>
+                  <div className="py-1">
+                    <label className="checkbox has-text-weight-medium pr-4">
+                      <input id="event" type="checkbox" onChange={updateFilter}/>
+                      <span className="has-text-white">_</span>(Temp) Event / Recurring
                     </label>
                   </div>
                   <hr className="my-4" />

@@ -2009,6 +2009,10 @@ div.icon-text {
     .tag:not(body).is-info.is-light {
       background-color: #eff5fb;
       color: #296fa8; }
+  .tag:not(body).is-event {
+    background-color: #ffd966;
+    color: #fff;     
+  }
   .tag:not(body).is-success {
     background-color: #30d158;
     color: #fff; }
