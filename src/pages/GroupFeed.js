@@ -4,15 +4,40 @@ import * as React from 'react';
 import Footer from "../components/Footer";
 import ToggleButton from '@mui/material/ToggleButton';
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
+import { useState, useEffect } from 'react';
+import db from '../firebase/firebase'
+import { collection, getDocs } from 'firebase/firestore'
+import GroupCard from "../components/GroupCard";
+
 export default function GroupFeed() {
-    const [formats, setFormats] = React.useState(() => ['bold', 'italic']);
+    const [formats, setFormats] = useState(() => ['bold', 'italic']);
+    const [groups, setGroups] = useState()
 
     const handleFormat = (
-        event: React.MouseEvent<HTMLElement>,
+        event: MouseEvent<HTMLElement>,
         newFormats: string[],
     ) => {
         setFormats(newFormats);
     };
+
+    let groupcards = (groups && groups.map(group => (
+        <GroupCard title={group.title}
+            description={group.description}
+            tags={group.tags}
+            key={group.created}
+            social={group.social} />
+    )))
+
+    useEffect(() => {
+        async function getQuery() {
+            let groupsList = []
+            const query = await getDocs(collection(db, 'Groups'))
+
+            query.forEach(doc => groupsList.push(doc.data()))
+            setGroups(groupsList)
+        }
+        getQuery();
+    }, [])
 
     return (
         <div>
@@ -91,27 +116,29 @@ export default function GroupFeed() {
                                         color="primary"
                                         size="small"
                                         fullWidth
-
+                                        sx={{
+                                            borderRadius: '9999px',
+                                        }}
                                     >
-                                        <ToggleButton sx={{borderRadius: 9999}} value="sunday">
+                                        <ToggleButton sx={{ borderRadius: 9999 }} value="sunday" aria-label="bold">
                                             S
                                         </ToggleButton>
-                                        <ToggleButton value="monday">
+                                        <ToggleButton value="monday" aria-label="italic">
                                             M
                                         </ToggleButton>
-                                        <ToggleButton value="tuesday">
+                                        <ToggleButton value="tuesday" aria-label="underlined">
                                             T
                                         </ToggleButton>
-                                        <ToggleButton value="wednesday">
+                                        <ToggleButton value="wednesday" aria-label="color">
                                             W
                                         </ToggleButton>
-                                        <ToggleButton value="thursday">
+                                        <ToggleButton value="thursday" aria-label="italic">
                                             T
                                         </ToggleButton>
-                                        <ToggleButton value="friday">
+                                        <ToggleButton value="friday" aria-label="underlined">
                                             F
                                         </ToggleButton>
-                                        <ToggleButton sx={{borderRadius: 9999}} value="saturday">
+                                        <ToggleButton value="saturday" aria-label="color">
                                             S
                                         </ToggleButton>
                                     </ToggleButtonGroup>
@@ -128,91 +155,92 @@ export default function GroupFeed() {
                                         </span>
                                     </div>
                                 </div>
-                                <article class="media my-5">
-                                    <figure class="media-left">
-                                        <p class="image is-64x64">
-                                            <img src={require("../assets/profile_pic.png")} alt="face" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <strong className="has-text-black">Cricket @ Community Pitch</strong>
-                                                <br />
-                                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae ex tortor. In
-                                                a metus nisi. Sed laoreet sit amet lacus et sagittis. Quisque interdum purus quis
-                                                quam eleifend tempus. In ultrices diam ac odio vestibulum, ut lacinia sapien id tristique tortor efficitur. Nam semper...                                         </p>
-                                        </div>
-                                        <div className="tags">
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Social Group</span>
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-dark">Other Sports</span>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="media my-5">
-                                    <figure class="media-left">
-                                        <p class="image is-64x64">
-                                            <img src={require("../assets/ui-faces/person_1.png")} alt="face" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <strong className="has-text-black">COMP 550 Study Group</strong>
-                                                <br />
-                                                Aliquam lobortis sodales ipsum, vel molestie ipsum sollicitudin ac. Curabitur
-                                                vehicula urna eget ex mattis, id tristique tortor efficitur. Nam semper pretium
-                                                scelerisque. Nunc enim ex.
-                                            </p>
-                                        </div>
-                                        <div className="tags">
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Study Group</span>
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-dark">COMP</span>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="media my-5">
-                                    <figure class="media-left">
-                                        <p class="image is-64x64">
-                                            <img src={require("../assets/profile_pic.png")} alt="face" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <strong className="has-text-black">PHYS118 Study Buddies</strong>
-                                                <br />
-                                                Vestibulum at quam eleifend, interdum nibh eu, laoreet tortor.
-                                            </p>
-                                        </div>
-                                        <div className="tags">
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Study Group</span>
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-dark">PHYS</span>
-                                        </div>
-                                    </div>
-                                </article>
-                                <article class="media my-5">
-                                    <figure class="media-left">
-                                        <p class="image is-64x64">
-                                            <img src={require("../assets/ui-faces/person_1.png")} alt="face" />
-                                        </p>
-                                    </figure>
-                                    <div class="media-content">
-                                        <div class="content">
-                                            <p>
-                                                <strong className="has-text-black">Indie Film Appreciators</strong>
-                                                <br />
-                                                Integer eget hendrerit quam. Nam elementum nec ligula at gravida. Nulla non
-                                                tincidunt lectus. Suspendisse accumsan egestas massa, at sollicitudin dui tincidunt
-                                                accumsan suscipit dolor, et euismod ante blandit quis.
-                                            </p>
-                                        </div>
-                                        <div className="tags">
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Social Group</span>
-                                            <span className="tag is-rounded has-text-weight-semibold has-text-dark">Movies</span>
-                                        </div>
-                                    </div>
-                                </article>
+                                {groupcards}
+                                {/* <article className="media my-5">
+									<figure className="media-left">
+										<p className="image is-64x64">
+											<img src={require("../assets/profile_pic.png")} alt="face" />
+										</p>
+									</figure>
+									<div className="media-content">
+										<div className="content">
+											<p>
+												<strong className="has-text-black">Cricket @ Community Pitch</strong>
+												<br />
+												Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vitae ex tortor. In
+												a metus nisi. Sed laoreet sit amet lacus et sagittis. Quisque interdum purus quis
+												quam eleifend tempus. In ultrices diam ac odio vestibulum, ut lacinia sapien id tristique tortor efficitur. Nam semper...                                         </p>
+										</div>
+										<div className="tags">
+											<span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Social Group</span>
+											<span className="tag is-rounded has-text-weight-semibold has-text-dark">Other Sports</span>
+										</div>
+									</div>
+								</article>
+								<article className="media my-5">
+									<figure className="media-left">
+										<p className="image is-64x64">
+											<img src={require("../assets/ui-faces/person_1.png")} alt="face" />
+										</p>
+									</figure>
+									<div className="media-content">
+										<div className="content">
+											<p>
+												<strong className="has-text-black">COMP 550 Study Group</strong>
+												<br />
+												Aliquam lobortis sodales ipsum, vel molestie ipsum sollicitudin ac. Curabitur
+												vehicula urna eget ex mattis, id tristique tortor efficitur. Nam semper pretium
+												scelerisque. Nunc enim ex.
+											</p>
+										</div>
+										<div className="tags">
+											<span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Study Group</span>
+											<span className="tag is-rounded has-text-weight-semibold has-text-dark">COMP</span>
+										</div>
+									</div>
+								</article>
+								<article className="media my-5">
+									<figure className="media-left">
+										<p className="image is-64x64">
+											<img src={require("../assets/profile_pic.png")} alt="face" />
+										</p>
+									</figure>
+									<div className="media-content">
+										<div className="content">
+											<p>
+												<strong className="has-text-black">PHYS118 Study Buddies</strong>
+												<br />
+												Vestibulum at quam eleifend, interdum nibh eu, laoreet tortor.
+											</p>
+										</div>
+										<div className="tags">
+											<span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Study Group</span>
+											<span className="tag is-rounded has-text-weight-semibold has-text-dark">PHYS</span>
+										</div>
+									</div>
+								</article>
+								<article className="media my-5">
+									<figure className="media-left">
+										<p className="image is-64x64">
+											<img src={require("../assets/ui-faces/person_1.png")} alt="face" />
+										</p>
+									</figure>
+									<div className="media-content">
+										<div className="content">
+											<p>
+												<strong className="has-text-black">Indie Film Appreciators</strong>
+												<br />
+												Integer eget hendrerit quam. Nam elementum nec ligula at gravida. Nulla non
+												tincidunt lectus. Suspendisse accumsan egestas massa, at sollicitudin dui tincidunt
+												accumsan suscipit dolor, et euismod ante blandit quis.
+											</p>
+										</div>
+										<div className="tags">
+											<span className="tag is-rounded has-text-weight-semibold has-text-white is-success">Social Group</span>
+											<span className="tag is-rounded has-text-weight-semibold has-text-dark">Movies</span>
+										</div>
+									</div>
+								</article> */}
                             </div>
                             <div className="column">
 

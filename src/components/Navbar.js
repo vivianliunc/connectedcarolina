@@ -1,6 +1,4 @@
 import { Link } from "react-router-dom"
-import GroupFeed from "../pages/GroupFeed"
-import CreateGroup from "../pages/CreateGroup"
 
 export default function Navbar() {
     return (
