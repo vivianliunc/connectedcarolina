@@ -1,8 +1,14 @@
 function GroupCard(props) {
+  let toTitleCase = (str) => {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1)
+    })
+  }
+
   let tags = (props.tags && props.tags.map(tag => (
     <span className="tag is-rounded has-text-weight-semibold has-text-dark"
       key={tag}>
-      {tag}
+      {toTitleCase(tag)}
     </span>
   )))
 
@@ -22,9 +28,17 @@ function GroupCard(props) {
           </p>
         </div>
         <div className="tags">
-          <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">
-            {props.social ? 'Social Group' : 'Study Group'}
-          </span>
+          {props.event &&
+            <span className="tag is-rounded has-text-weight-semibold has-text-white is-event">
+              {props.social ? 'Social Event' : 'Study Event'}
+            </span>
+          }
+          {!props.event &&
+            <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">
+              {props.social ? 'Social Group' : 'Study Group'}
+            </span>
+
+          }
           {tags}
         </div>
       </div>

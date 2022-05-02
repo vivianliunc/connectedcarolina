@@ -2015,6 +2015,9 @@ div.icon-text {
     .tag:not(body).is-success.is-light {
       background-color: #eefbf2;
       color: #1c7d34; }
+  .tag:not(body).is-event {
+    background-color: #ff9f0a;
+    color: #fff; }
   .tag:not(body).is-warning {
     background-color: #ffe08a;
     color: rgba(0, 0, 0, 0.7); }
