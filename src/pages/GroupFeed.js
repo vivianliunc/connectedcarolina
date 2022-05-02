@@ -183,6 +183,105 @@ function GroupFeed() {
                       <i className="fas fa-chevron-down"></i>
                     </span>
                   </div>
+                  <div className="tags are-small are-rounded">
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="comp" aria-label="bold">
+                      COMP
+                    </ToggleButton>
+                    <ToggleButton value="phys" aria-label="italic">
+                      PHYS
+                    </ToggleButton>
+                    <ToggleButton value="math" aria-label="underlined">
+                      MATH
+                    </ToggleButton>
+                    <ToggleButton value="stor" aria-label="color">
+                      STOR
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="hist" aria-label="italic">
+                      HIST
+                    </ToggleButton>
+                    <ToggleButton value="engl" aria-label="bold">
+                      ENGL
+                    </ToggleButton>
+                    <ToggleButton value="arth" aria-label="italic">
+                      ARTH
+                    </ToggleButton>
+                    <ToggleButton value="pwad" aria-label="underlined">
+                      PWAD
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="busi" aria-label="color">
+                      BUSI
+                    </ToggleButton>
+                    <ToggleButton value="anth" aria-label="italic">
+                      ANTH
+                    </ToggleButton>
+                    <ToggleButton value="biol" aria-label="underlined">
+                      BIOL
+                    </ToggleButton>
+                    <ToggleButton value="chem" aria-label="color">
+                      CHEM
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="econ" aria-label="color">
+                      ECON
+                    </ToggleButton>
+                    <ToggleButton value="othermajors" aria-label="italic">
+                      Other Majors
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  </div>
                   <div className="has-text-black has-text-weight-medium mb-3">
                     <span className="mr-1">Sports</span>
                     <span className="icon">
@@ -190,28 +289,291 @@ function GroupFeed() {
                     </span>
                   </div>
                   <div className="tags are-small are-rounded">
-                    <span className="tag is-rounded is-primary has-text-weight-semibold has-text-white">Soccer</span>
-                    <span className="tag is-rounded is-primary has-text-weight-semibold has-text-white">Football</span>
-                    <span className="tag is-rounded has-text-weight-semibold has-text-dark">Baseball</span>
-                    <span className="tag is-rounded has-text-weight-semibold has-text-dark">Basketball</span>
-                    <span className="tag is-rounded has-text-weight-semibold has-text-dark">Hockey</span>
-                    <span className="tag is-rounded has-text-weight-semibold has-text-dark">Golf</span>
-                    <span className="tag is-rounded has-text-weight-semibold has-text-dark">Other Sports</span>
-                    <span className="tag is-rounded has-text-weight-semibold has-text-dark">Sports Watching</span>
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="soccer" aria-label="bold">
+                      Soccer
+                    </ToggleButton>
+                    <ToggleButton value="football" aria-label="italic">
+                      Football
+                    </ToggleButton>
+                    <ToggleButton value="baseball" aria-label="underlined">
+                      Baseball
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="basketball" aria-label="color">
+                      Basketball
+                    </ToggleButton>
+                    <ToggleButton value="hockey" aria-label="italic">
+                      Hockey
+                    </ToggleButton>
+                    <ToggleButton value="golf" aria-label="bold">
+                      Golf
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="othersports" aria-label="italic">
+                      Other Sports
+                    </ToggleButton>
+                    <ToggleButton value="sportswatching" aria-label="underlined">
+                      Sports Watching
+                    </ToggleButton>
+                  </ToggleButtonGroup>
                   </div>
                   <div className="has-text-black has-text-weight-medium mb-3">
                     <span className="mr-1">Interests</span>
                     <span className="icon">
-                      <i className="fas fa-chevron-down"></i>
+                      <i className="fas fa-chevron-up"></i>
                     </span>
                   </div>
+                  <div className="tags are-small are-rounded">
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="art" aria-label="bold">
+                      Art
+                    </ToggleButton>
+                    <ToggleButton value="videogames" aria-label="italic">
+                      Video Games
+                    </ToggleButton>
+                    <ToggleButton value="boardgames" aria-label="underlined">
+                      Board Games
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="hiking" aria-label="color">
+                      Hiking
+                    </ToggleButton>
+                    <ToggleButton value="moviestv" aria-label="italic">
+                      Movies/TV
+                    </ToggleButton>
+                    <ToggleButton value="politics" aria-label="bold">
+                      Politics
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="debate" aria-label="italic">
+                      Debate
+                    </ToggleButton>
+                    <ToggleButton value="publicspeaking" aria-label="underlined">
+                      Public Speaking
+                    </ToggleButton>
+                    <ToggleButton value="dancing" aria-label="color">
+                      Dancing
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="singing" aria-label="italic">
+                      Singing
+                    </ToggleButton>
+                    <ToggleButton value="theatre" aria-label="underlined">
+                      Theatre
+                    </ToggleButton>
+                    <ToggleButton value="volunteering" aria-label="color">
+                      Volunteering
+                    </ToggleButton>            
+                  </ToggleButtonGroup>
+
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="networking" aria-label="color">
+                      Networking
+                    </ToggleButton>
+                    <ToggleButton value="otherinterests" aria-label="italic">
+                      Other Interests
+                    </ToggleButton>                   
+                  </ToggleButtonGroup>
+                  </div>
+
                   <div className="has-text-black has-text-weight-medium mb-3">
                     <span className="mr-1">Music</span>
                     <span className="icon">
                       <i className="fas fa-chevron-down"></i>
                     </span>
                   </div>
+                  <div className="tags are-small are-rounded">
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="art" aria-label="bold">
+                      Art
+                    </ToggleButton>
+                    <ToggleButton value="videogames" aria-label="italic">
+                      Video Games
+                    </ToggleButton>
+                    <ToggleButton value="boardgames" aria-label="underlined">
+                      Board Games
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="classical" aria-label="color">
+                      Classical
+                    </ToggleButton>
+                    <ToggleButton value="hiphop" aria-label="italic">
+                      Hip Hop
+                    </ToggleButton>
+                    <ToggleButton value="pop" aria-label="bold">
+                      Pop
+                    </ToggleButton>
+                  </ToggleButtonGroup>
+                  
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="electronic" aria-label="italic">
+                      Electronic
+                    </ToggleButton>
+                    <ToggleButton value="indie" aria-label="underlined">
+                      Indie
+                    </ToggleButton>
+                    <ToggleButton value="country" aria-label="color">
+                      Country
+                    </ToggleButton>
+                  </ToggleButtonGroup>
 
+                  <ToggleButtonGroup
+                    value={formats}
+                    onChange={handleFormat}
+                    aria-label="text formatting"
+                    type="checkbox"
+                    color="primary"
+                    size="small"
+                    fullWidth
+                    sx={{
+                      borderRadius: '9999px',
+                    }}
+                  >
+                    <ToggleButton value="jazz" aria-label="italic">
+                      Jazz
+                    </ToggleButton>
+                    <ToggleButton value="rock" aria-label="underlined">
+                      Rock
+                    </ToggleButton>
+                    <ToggleButton value="othergenres" aria-label="color">
+                      Other Genres
+                    </ToggleButton>            
+                  </ToggleButtonGroup>
+                  </div>
                   <hr className="my-3" />
                   <p className="has-text-black has-text-weight-semibold is-size-5 pt-1 pb-4">Meeting Availability</p>
                   <ToggleButtonGroup
