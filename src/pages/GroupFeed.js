@@ -182,7 +182,16 @@ export default function GroupFeed() {
                                 </div>
                             </div>
                             <div className="column is-half">
-                                <span className="is-size-2 has-text-weight-bold has-text-black">Home</span>
+                                <div className="is-flex is-flex-direction-row is-justify-content-space-between">
+                                    <span className="is-size-2 has-text-weight-bold has-text-black">Home</span>
+                                    <div>
+                                        <span className="mt-2">
+                                            <span className="has-text-weight-bold">Recurring Groups</span>
+                                            <CCSwitch />
+                                            <span className="has-text-weight-medium">Event Groups</span>
+                                        </span>
+                                    </div>
+                                </div>
                                 <div className="field pt-4">
                                     <div className="control has-icons-right">
                                         <input className="input has-text-black" type="text" placeholder="Search for groups by name" value={search} onChange={e => setSearch(e.target.value)} />
