@@ -12,6 +12,9 @@ function GroupFeed() {
   const [social, setSocial] = useState(false)
   const [study, setStudy] = useState(false)
   const [isEvent, setIsEvent] = useState(false)
+  const [days, setDays] = useState([])
+  const [search, setSearch] = useState('')
+  const [tags, setTags] = useState('')
 
   const handleFormat = (
     event: MouseEvent<HTMLElement>,
@@ -22,19 +25,35 @@ function GroupFeed() {
 
   let filterFunc = (list) => {
     let output = list
-    if (!social && !study) {
-      // return list
-    } else if (social) {
-      output = list.filter(group => group.props.social)
-    } else if (study) {
-      output = list.filter(group => !group.props.social)
+    if (social && !study) {
+      output = list.filter(group => group.social)
+    } else if (study && !social) {
+      output = list.filter(group => !group.social)
     }
 
-    return output && output.filter(group => group.props.event === isEvent)
+    let checker = (arr, target) => target.some(v => arr.includes(v));
+
+    output = output && output.filter(group => group.event === isEvent &&
+      group.title.toLowerCase().includes(search.toLowerCase()) &&
+      group.tags.map(e => e.toLowerCase()).some(tag => tag.includes(tags)))
+
+    // if card days contains all of the state days, show
+    if (!isEvent && !days.length == 0) {
+      output = output && output.filter(group => checker(group.days, days))
+    }
+
+    return output
   }
 
+  let toggleDays = (value) => {
+    if (days.includes(value)) {
+      setDays(days.filter(day => day !== value))
+    } else {
+      setDays([...days, value])
+    }
+  }
 
-  let groupcards = filterFunc(groups && groups.map(group => (
+  let groupcards = (groups && filterFunc(groups).map(group => (
     <GroupCard title={group.title}
       description={group.description}
       tags={group.tags}
@@ -82,7 +101,7 @@ function GroupFeed() {
                   <hr className="my-4" />
                   <p className="has-text-black has-text-weight-semibold is-size-5 pt-1 pb-4">Tags</p>
                   <div className="control has-icons-right pb-4">
-                    <input className="input has-text-black is-small" type="text" placeholder="Search for a tag" />
+                    <input className="input has-text-black is-small" type="text" placeholder="Search for a tag" value={tags} onChange={e => setTags(e.target.value)} />
                     <span className="icon is-small is-right">
                       <i className="fas fa-search"></i>
                     </span>
@@ -135,25 +154,25 @@ function GroupFeed() {
                       borderRadius: '9999px',
                     }}
                   >
-                    <ToggleButton value="sunday" aria-label="bold">
+                    <ToggleButton value="sunday" aria-label="bold" onClick={e => toggleDays(e.target.value)}>
                       S
                     </ToggleButton>
-                    <ToggleButton value="monday" aria-label="italic">
+                    <ToggleButton value="monday" aria-label="italic" onClick={e => toggleDays(e.target.value)}>
                       M
                     </ToggleButton>
-                    <ToggleButton value="tuesday" aria-label="underlined">
+                    <ToggleButton value="tuesday" aria-label="underlined" onClick={e => toggleDays(e.target.value)}>
                       T
                     </ToggleButton>
-                    <ToggleButton value="wednesday" aria-label="color">
+                    <ToggleButton value="wednesday" aria-label="color" onClick={e => toggleDays(e.target.value)}>
                       W
                     </ToggleButton>
-                    <ToggleButton value="thursday" aria-label="italic">
+                    <ToggleButton value="thursday" aria-label="italic" onClick={e => toggleDays(e.target.value)}>
                       T
                     </ToggleButton>
-                    <ToggleButton value="friday" aria-label="underlined">
+                    <ToggleButton value="friday" aria-label="underlined" onClick={e => toggleDays(e.target.value)}>
                       F
                     </ToggleButton>
-                    <ToggleButton value="saturday" aria-label="color">
+                    <ToggleButton value="saturday" aria-label="color" onClick={e => toggleDays(e.target.value)}>
                       S
                     </ToggleButton>
                   </ToggleButtonGroup>
@@ -163,7 +182,7 @@ function GroupFeed() {
                 <span className="is-size-2 has-text-weight-bold has-text-black">Home</span>
                 <div className="field pt-4">
                   <div className="control has-icons-right">
-                    <input className="input has-text-black" type="text" placeholder="Search for groups by name" />
+                    <input className="input has-text-black" type="text" placeholder="Search for groups by name" value={search} onChange={e => setSearch(e.target.value)} />
                     <span className="icon is-small is-right">
                       <i className="fas fa-search"></i>
                     </span>

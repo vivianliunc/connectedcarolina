@@ -1,8 +1,14 @@
 function GroupCard(props) {
+  let toTitleCase = (str) => {
+    return str.replace(/\w\S*/g, function (txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1)
+    })
+  }
+
   let tags = (props.tags && props.tags.map(tag => (
     <span className="tag is-rounded has-text-weight-semibold has-text-dark"
       key={tag}>
-      {tag}
+      {toTitleCase(tag)}
     </span>
   )))
 
