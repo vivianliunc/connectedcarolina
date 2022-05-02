@@ -22,9 +22,17 @@ function GroupCard(props) {
           </p>
         </div>
         <div className="tags">
-          <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">
-            {props.social ? 'Social Group' : 'Study Group'}
-          </span>
+          {props.event &&
+            <span className="tag is-rounded has-text-weight-semibold has-text-white is-event">
+              {props.social ? 'Social Event' : 'Study Event'}
+            </span>
+          }
+          {!props.event &&
+            <span className="tag is-rounded has-text-weight-semibold has-text-white is-success">
+              {props.social ? 'Social Group' : 'Study Group'}
+            </span>
+
+          }
           {tags}
         </div>
       </div>

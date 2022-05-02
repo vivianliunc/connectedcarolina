@@ -9,6 +9,9 @@ import GroupCard from "../components/GroupCard";
 function GroupFeed() {
   const [formats, setFormats] = useState(() => ['bold', 'italic']);
   const [groups, setGroups] = useState()
+  const [social, setSocial] = useState(false)
+  const [study, setStudy] = useState(false)
+  const [isEvent, setIsEvent] = useState(false)
 
   const handleFormat = (
     event: MouseEvent<HTMLElement>,
@@ -17,12 +20,27 @@ function GroupFeed() {
     setFormats(newFormats);
   };
 
-  let groupcards = (groups && groups.map(group => (
+  let filterFunc = (list) => {
+    let output = list
+    if (!social && !study) {
+      // return list
+    } else if (social) {
+      output = list.filter(group => group.props.social)
+    } else if (study) {
+      output = list.filter(group => !group.props.social)
+    }
+
+    return output && output.filter(group => group.props.event === isEvent)
+  }
+
+
+  let groupcards = filterFunc(groups && groups.map(group => (
     <GroupCard title={group.title}
       description={group.description}
       tags={group.tags}
       key={group.created}
-      social={group.social} />
+      social={group.social}
+      event={group.event} />
   )))
 
   useEffect(() => {
@@ -51,13 +69,13 @@ function GroupFeed() {
                   <p className="has-text-black has-text-weight-semibold is-size-5 pt-1 pb-2">Types</p>
                   <div className="py-1">
                     <label className="checkbox has-text-weight-medium">
-                      <input type="checkbox" />
+                      <input type="checkbox" value={social} onChange={() => setSocial(!social)} />
                       <span className="has-text-white">_</span>Social Groups
                     </label>
                   </div>
                   <div className="py-1">
                     <label className="checkbox has-text-weight-medium pr-4">
-                      <input type="checkbox" />
+                      <input type="checkbox" value={study} onChange={() => setStudy(!study)} />
                       <span className="has-text-white">_</span>Study Groups
                     </label>
                   </div>
