@@ -1,10 +1,11 @@
 import './styles.css';
-import GroupFeed from './pages/GroupFeed';
 import './App.css';
+import GroupFeed from './pages/GroupFeed';
 
 function App() {
   return (
     <div className="App">
+      <h1>h1</h1>
       <GroupFeed />
     </div>
   );
